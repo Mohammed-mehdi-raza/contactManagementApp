@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Contact } from "../types/contact";
 
-const url = "http://localhost:5000/";
+// const url = "http://localhost:5000/";
+const url ="https://contact-management-app-api.onrender.com/"
 
 const API = axios.create({baseURL:url});
 
