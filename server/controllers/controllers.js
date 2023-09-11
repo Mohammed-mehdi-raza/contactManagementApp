@@ -19,7 +19,6 @@ export const getAllContact = async(req,res)=>{
 export const getContact = async(req,res)=>{
     try {
         const id = req.params.id;
-        console.log(id);
         if(!mongoose.Types.ObjectId.isValid(id)){
             res.status(202).json({
                 success:false,
@@ -47,13 +46,15 @@ export const createContact = async(req,res)=>{
                 success:false,
                 message:'Every field is required',
             })
+        }else{
+            const newContact = new contact(body);
+            await newContact.save();
+            res.status(200).json({
+                success:true,
+                message:'contact added successfully',
+                data:newContact
+            })
         }
-        const newContact = new contact(body);
-        await newContact.save();
-        res.status(200).json({
-            success:true,
-            message:'contact added successfully',
-        })
     } catch (error) {
         res.status(202).json({
             success:false,
@@ -79,9 +80,11 @@ export const updateContact = async(req,res)=>{
             })
         }
         const updateContact = await contact.findByIdAndUpdate(id,body,{new:true});
+        const getAll = await contact.find();
         res.status(200).json({
             success:true,
-            message:'contact update successfully'
+            message:'contact update successfully',
+            data:getAll
         })
     } catch (error) {
         res.status(202).json({

@@ -1,17 +1,18 @@
-import {useContext,useState} from "react";
+import {useContext} from "react";
 import {AiOutlineClose} from "react-icons/ai";
 
 import MyContext from "../../context/Mycontext";
 import './style.css';
-import { Contact } from "../../types/contact";
-import { useAppDispatch } from "../../features/Contacts/hooks/hooks";
-import { ADD } from "../../features/Contacts/contactsSlice";
+import { useAppContext, useAppDispatch } from "../../features/Contacts/hooks/hooks";
+import { ADD, UPDATE } from "../../features/Contacts/contactsSlice";
+import { createContact, updateContact } from "../../api/index.ts";
+import toast from "react-hot-toast";
 
 const AddContactForm = () => {
 
   const {setState}=useContext(MyContext) as any;  
 
-  const [contactData,setContactData] =useState<Contact>({name:"",email:"",SPOC:"",mobileNo:"",createdDate:new Date()});
+  const {contactData,setContactData} = useAppContext();
 
   const dispatch = useAppDispatch();
 
@@ -23,12 +24,29 @@ const AddContactForm = () => {
     setContactData({...contactData,[e.target.name]:e.target.value})
   }
 
-  const handleSubmit=()=>{
-    dispatch(ADD(contactData));
+  const handleSubmit=async()=>{
+    setState(false);
+    if(contactData._id){
+      const {data} = await updateContact(contactData,contactData._id);
+      if(!data.success){
+        toast.error(data.message);
+      }else{
+        dispatch(UPDATE(data.data));
+        toast.success(data.message);
+      }
+    }else{
+      const {data} = await createContact(contactData);
+      if(!data.success){
+        toast.error(data.message);
+      }else{
+        dispatch(ADD(data.data));
+        toast.success(data.message);
+      }
+    }
   }
 
   const handleClear=()=>{
-    setContactData({name:"",email:"",SPOC:"",mobileNo:"",createdDate:new Date()})
+    setContactData({name:"",email:"",SPOC:"",mobileNo:""})
   }
 
   return (
