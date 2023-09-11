@@ -5,7 +5,7 @@ import {HiSortDescending} from "react-icons/hi";
 import {toast} from "react-hot-toast";
 
 import MyContext from '../../context/Mycontext';
-import { useAppDispatch } from '../../features/Contacts/hooks/hooks';
+import { useAppContext, useAppDispatch } from '../../features/Contacts/hooks/hooks';
 import { ASCENDINGSORT, DESCENDINGSORT, SEARCH } from '../../features/Contacts/contactsSlice';
 import { searchContact } from '../../api';
 
@@ -13,10 +13,12 @@ const TopBar = () => {
 
   const [searchQuery,setSearchQuery] = useState("");
   const {setState} =useContext(MyContext) as any;
+  const {setContactData} = useAppContext();
   const dispatch = useAppDispatch();
 
   const handleAdd=()=>{
-    setState(true)
+    setContactData({name:"",email:"",SPOC:"",mobileNo:""})
+    setState(true);
   }
 
   const handleAscendingSort=()=>{
