@@ -1,0 +1,14 @@
+.box>input{
+    margin: 3%;
+    height: 70%;
+    padding: 3%;
+    border: solid black 1px;
+}
+
+.but>button{
+    color: white;
+    border-radius: 7px;
+    width: 40%;
+    padding: 2%;
+}
+
