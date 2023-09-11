@@ -1,11 +1,7 @@
 import {useState,useContext} from "react";
 import {CiMenuKebab} from "react-icons/ci";
 import {CgProfile} from "react-icons/cg";
-import {IoIosCall} from "react-icons/io";
-import {IoChatbubblesOutline,IoChatboxEllipsesOutline,IoCallOutline,IoLogoWhatsapp,IoMailOutline} from "react-icons/io5"
-import {BsChatLeftText, BsWhatsapp} from "react-icons/bs";
-import {PiChatsCircleBold} from "react-icons/pi";
-import {HiOutlineMail} from "react-icons/hi";
+import {IoChatbubblesOutline,IoChatboxEllipsesOutline,IoCallOutline,IoLogoWhatsapp,IoMailOutline} from "react-icons/io5";
 import {AiOutlineDelete, AiOutlineEdit} from "react-icons/ai";
 import {toast} from "react-hot-toast";
 
